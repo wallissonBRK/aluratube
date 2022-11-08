@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import Banner from "../src/components/Banner";
+import FavList from "../src/components/FavList";
+
 
 function HomePage() {
   const estilosDaHomePage = { 
@@ -16,8 +19,10 @@ function HomePage() {
       <CSSReset />
       <div style={estilosDaHomePage}>
         <Menu />
+        <Banner imgSrc={config.bannerUrl} />
         <Header />
         <Timeline playlists={config.playlists} />
+        <FavList favorites={config.favorites}></FavList>
       </div>
     </>
   );
@@ -40,7 +45,7 @@ const StyledHeader = styled.div`
       border-radius: 50%;
     }
     .user-info{
-      margin-top: 50px;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       width: 100%;
@@ -48,10 +53,9 @@ const StyledHeader = styled.div`
       gap: 16px;
     }
 `;
-function Header() {
+function Header(props) {
   return (
     <StyledHeader>
-      <img src="banner" />
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} />
         <div>
