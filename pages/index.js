@@ -12,6 +12,8 @@ function HomePage() {
     //backgroundColor: "red" 
   };
 
+  const valorDoFiltro = "GOD";
+
   //console.log(config.playlists);
 
   return (
@@ -21,7 +23,7 @@ function HomePage() {
         <Menu />
         <Banner imgSrc={config.bannerUrl} />
         <Header />
-        <Timeline playlists={config.playlists} />
+        <Timeline searchValue={valorDoFiltro} playlists={config.playlists} />
         <FavList favorites={config.favorites}></FavList>
       </div>
     </>
@@ -71,7 +73,7 @@ function Header(props) {
   )
 }
 
-function Timeline(props) {
+function Timeline(searchValue, ...props) {
   //console.log("dentro do componente", props.playlists);
   const playlistNames = Object.keys(props.playlists);
 
@@ -89,13 +91,13 @@ function Timeline(props) {
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = props.playlists[playlistName];
-        console.log(playlistName);
-        console.log(videos);
         return (
           <section>
             <h2>{playlistName}</h2>
             <div>
-              {videos.map((video) => {
+              {videos.filter((video) => {
+                  return video.title.includes(searchValue)
+              }).map((video) => {
                 return (
                   <a href={video.url}>
                     <img src={video.thumb} />
@@ -107,7 +109,6 @@ function Timeline(props) {
               })}
             </div>
           </section>
-
         )
       })}
     </StyledTimeline>
